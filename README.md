@@ -2,9 +2,8 @@
 ## Various programs to scrap the tuxjes logs.
 
 
-#-------------------------------------------------------------------------------
 # TUJXES record formats
-#-------------------------------------------------------------------------------
+
 
 * dione	BATCHPRD_RP	20190625 16:00:14	01195329	PTARARAF	-	**SUBMITTED**	ARTJESADM	1_1	15794284  
 	+ dione  
