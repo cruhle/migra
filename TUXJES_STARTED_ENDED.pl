@@ -18,6 +18,7 @@ use File::Basename;
 
 use lib 'lib';
 require DateCalcFunctions;
+require date_range_6d;
 
 my @registo;
 
@@ -30,7 +31,8 @@ if(!-e $parm) {
 
 my $ficheiro = basename($parm);
 $ficheiro =~ /(\d+)/;
-$ficheiro = '/tmp/pkis/started_ended_XX_'. $1 .'.csv';
+$ficheiro = date_range_6d::getDateRange($1);
+$ficheiro = '/tmp/pkis/XX_started_ended_'. $ficheiro .'.csv';
 
 my $fp;
 my $domain;
@@ -111,8 +113,8 @@ foreach(sort keys %jobs) {
 		$jobs{$_}{'JOB_NAME'},
 		$jobs{$_}{'DOMAIN'},
 		$jobs{$_}{'CLASS'},
-		$jobs{$_}{'STARTED'},
-		$jobs{$_}{'ENDED'},
+		showToDate($jobs{$_}{'STARTED'}),
+		showToDate($jobs{$_}{'ENDED'}),
 		$status,
 		$jobs{$_}{'RETURN_CODE'}
 	);
@@ -126,6 +128,14 @@ close $fp;
 
 printf("%s\n",$ficheiro);
 
+#---------------------------------------------------
 
+sub showToDate {
 
+	my $x = shift;	
 
+	$x =~ /(\d{4})(\d{2})(\d{2}) (.{8})/;
+
+	return (sprintf("%04d-%02d-%02d %s" ,$1, $2, $3, $4));
+
+}
